@@ -1,10 +1,11 @@
-import { useRef, useState } from "preact/hooks"
+import { useState } from "preact/hooks"
+import { useConst } from "./hooks/useConst"
 
 export const App = () => {
 
   const [ state, setState ] = useState(0)
-  const increase = useRef((prev: number) => prev + 1).current
-  const handlePointer = useRef(() => setState(increase)).current
+  const increase = useConst((prev: number) => prev + 1)
+  const handlePointer = useConst(() => setState(increase))
 
   return (
     <>
