@@ -42,7 +42,7 @@ const easing: Record<Ease, (t: number) => number> = {
 
 const defaults: AnimateDefaults = { dur: 1000, loop: false, ease: "linear" }
 
-export const animate = ({
+const animate = ({
   dur = 1000,
   loop = false,
   ease = "linear",
@@ -200,4 +200,32 @@ export const animate = ({
   }
 
   return it
+}
+
+let rafid: number,
+    looping = false,
+    frame = 0
+
+const stop = () => {
+  looping = false
+  cancelAnimationFrame(rafid)
+}
+
+const loop = (drawingCallBack: FrameRequestCallback) => {
+  looping = true
+  const play = (time: number) => {
+    frame++
+    drawingCallBack(time)
+    if (looping) rafid = requestAnimationFrame(play)
+  }
+  rafid = requestAnimationFrame(play)
+}
+
+export {
+  animate,
+
+  looping,
+  frame,
+  stop,
+  loop,
 }
