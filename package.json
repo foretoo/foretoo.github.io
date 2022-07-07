@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "preact": "^10.8.2",
-    "round-polygon": "^0.6.6"
+    "round-polygon": "^0.6.6",
+    "svg-pathdata": "^6.0.3"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.3.0",
