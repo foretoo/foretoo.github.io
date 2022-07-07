@@ -1,6 +1,6 @@
 import { SVGPathData, encodeSVGPath } from "svg-pathdata"
 import { SVGCommand } from "svg-pathdata/lib/types"
-import { RoundedPoint, Point } from "../../helpers/round"
+import { RoundedPoint, Point } from "helpers/round"
 
 export type PrePoints = { a: number, l: number }
 

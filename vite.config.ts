@@ -14,6 +14,11 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    alias: {
+      helpers: "/src/helpers"
+    },
+  },
   plugins: [
     preact(),
   ],

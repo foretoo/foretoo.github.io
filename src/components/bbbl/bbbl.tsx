@@ -1,7 +1,7 @@
 import "./style.sass"
 import { useEffect, useRef } from "preact/hooks"
-import roundPolygon, { InitPoint, RoundedPoint } from "../../helpers/round"
-import { animate } from "../../helpers/animate"
+import roundPolygon, { InitPoint, RoundedPoint } from "helpers/round"
+import { animate } from "helpers/animate"
 import { getpoints, getpath, PrePoints, getprepoints } from "./utils"
 
 
@@ -9,10 +9,7 @@ import { getpoints, getpath, PrePoints, getprepoints } from "./utils"
 const
   width = window.innerWidth,
   height = window.innerHeight,
-  pivot = {
-    x: width / 2,
-    y: height / 2
-  },
+  pivot = { x: width / 2, y: height / 2 },
   num = 8,
   content = "welcome to foretoo page ".replace(/\s/g, "   ").toUpperCase()
 
