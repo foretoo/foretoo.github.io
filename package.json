@@ -10,6 +10,7 @@
   "dependencies": {
     "preact": "^10.8.2",
     "round-polygon": "^0.6.6",
+    "simplex-noise": "^3.0.1",
     "svg-pathdata": "^6.0.3"
   },
   "devDependencies": {
