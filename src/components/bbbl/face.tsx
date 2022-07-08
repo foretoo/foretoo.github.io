@@ -7,16 +7,15 @@ export const Face = forwardRef((
 ) => {
 
   const fontSize = props.fontSize
-  const meanpoint = useRef(getmeanpoint())
   const circRef = useRef<SVGCircleElement>(null)
 
   useEffect(() => {
     animate({
       loop: true,
       ontick: () => {
-        meanpoint.current = getmeanpoint()
-        circRef.current!.setAttribute("cx", meanpoint.current!.x.toString())
-        circRef.current!.setAttribute("cy", meanpoint.current!.y.toString())
+        const pivot = getmeanpoint()
+        circRef.current!.setAttribute("cx", pivot.x.toString())
+        circRef.current!.setAttribute("cy", pivot.y.toString())
       }
     }).play()
   }, [])
