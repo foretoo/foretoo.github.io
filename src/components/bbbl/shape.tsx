@@ -16,11 +16,11 @@ export const Shape = (
       <use
         href={`#${id}`}
         fill="none"
-        stroke="#7fa"
+        stroke="#fff"
         stroke-width={ size / 12 - 2 | 0 }
         stroke-dasharray={ `0 ${size / 20 | 0}` }
       />
-      <use href={`#${id}`} fill="#7fa" stroke="none" />
+      <use href={`#${id}`} fill="#fff" stroke="none" />
     </>
   )
 }
