@@ -76,7 +76,7 @@ const getpath = () => {
   return path
 }
 
-const getmeanpoint = () => (
+export const getmeanpoint = () => (
   points.reduce((sum: Point, p, i) => {
     if (i === points.length - 1) return {
       x: (sum.x + p.x) / points.length,
@@ -103,5 +103,5 @@ export const init = (
 
   getpath()
 
-  return { getpath, getmeanpoint }
+  return getpath
 }

@@ -13,19 +13,17 @@ const
   height = window.innerHeight,
   fontSize = Math.min(width, height) / 25 | 0,
   num = 7,
-  { getpath, getmeanpoint } = init(width, height, num),
+  getpath = init(width, height, num),
   roundedPath = getpath()
 
 
 export const BBBL = () => {
 
   const pathRef = useRef<SVGPathElement>(null)
-  const meanpoint = useRef(getmeanpoint())
 
   useEffect(() => {
     loop(() => {
       pathRef.current!.setAttribute("d", getpath())
-      meanpoint.current = getmeanpoint()
     })
   }, [])
 
@@ -48,8 +46,8 @@ export const BBBL = () => {
       </defs>
 
       <Shape fontSize={fontSize} id="shapepath" />
-      <Face ref={meanpoint} fontSize={fontSize} />
-      <Text fontSize={fontSize} ref={pathRef} id="shapepath" />
+      <Face  fontSize={fontSize} />
+      <Text  fontSize={fontSize} ref={pathRef} id="shapepath" />
 
     </svg>
   )

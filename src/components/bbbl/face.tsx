@@ -1,21 +1,22 @@
-import { forwardRef, Ref, useEffect, useRef } from "preact/compat"
-import { Point } from "helpers/round"
+import { forwardRef, useEffect, useRef } from "preact/compat"
+import { getmeanpoint } from "./core"
 import { animate } from "helpers/animate"
 
 export const Face = forwardRef((
   props: { fontSize: number },
-  ref: Ref<Point>
 ) => {
 
   const fontSize = props.fontSize
+  const meanpoint = useRef(getmeanpoint())
   const circRef = useRef<SVGCircleElement>(null)
 
   useEffect(() => {
     animate({
       loop: true,
       ontick: () => {
-        circRef.current!.setAttribute("cx", ref.current!.x.toString())
-        circRef.current!.setAttribute("cy", ref.current!.y.toString())
+        meanpoint.current = getmeanpoint()
+        circRef.current!.setAttribute("cx", meanpoint.current!.x.toString())
+        circRef.current!.setAttribute("cy", meanpoint.current!.y.toString())
       }
     }).play()
   }, [])
