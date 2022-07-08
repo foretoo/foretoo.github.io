@@ -28,12 +28,14 @@ const noise = (
   ( simplex.noise2D(x, y) + 1 ) / 2
 )
 
+
 const getprepoints = () => (
   emptypoints.map((_, i) => ({
     a: frame / 500 + unitang * i,
     l: unitlen + noise(0, frame / 1000 + i * 5) * unitlen * 4, 
   }))
 )
+
 
 const getpoints = () => (
   prepoints.map(({ a, l }) => ({
@@ -42,9 +44,12 @@ const getpoints = () => (
   }))
 )
 
+
 const getroundedpath = () => (
   encodeSVGPath(
-    roundedpoints.reduce((acc: SVGCommand[], p, i) => (
+    roundedpoints.reduce((
+      acc: SVGCommand[], p, i
+    ) => (
       acc.concat([
         {
           type: i ? SVGPathData.LINE_TO :  SVGPathData.MOVE_TO,
@@ -67,6 +72,7 @@ const getroundedpath = () => (
   ).concat("Z")
 )
 
+
 const getpath = () => {
   prepoints = getprepoints()
   points = getpoints()
@@ -75,6 +81,7 @@ const getpath = () => {
   
   return path
 }
+
 
 export const getmeanpoint = () => (
   points.reduce((sum: Point, p, i) => {
@@ -88,6 +95,7 @@ export const getmeanpoint = () => (
     }
   })
 )
+
 
 export const init = (
   width: number,
