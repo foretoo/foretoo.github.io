@@ -21,8 +21,8 @@ export const App = () => {
     animate({
       loop: true,
       ontick: () => {
-        pivot.x += (pointer.x - pivot.x) * 0.05
-        pivot.y += (pointer.y - pivot.y) * 0.05
+        pivot.x += (pointer.x - pivot.x) * 0.01
+        pivot.y += (pointer.y - pivot.y) * 0.01
       }
     }).play()
     window.addEventListener("pointermove", moveListener)
