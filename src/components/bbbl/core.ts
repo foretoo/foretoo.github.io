@@ -9,7 +9,7 @@ import { frame } from "helpers/animate"
 type PrePoint = { a: number, l: number }
 
 let
-  pivot: Point,
+  _pivot: Point,
   length: number,
   unitang: number,
   unitlen: number,
@@ -39,8 +39,8 @@ const getprepoints = () => (
 
 const getpoints = () => (
   prepoints.map(({ a, l }) => ({
-    x: pivot.x + Math.cos(a) * l,
-    y: pivot.y + Math.sin(a) * l,
+    x: _pivot.x + Math.cos(a) * l,
+    y: _pivot.y + Math.sin(a) * l,
   }))
 )
 
@@ -98,13 +98,13 @@ export const getmeanpoint = () => (
 
 
 export const init = (
-  width: number,
-  height: number,
+  size: number,
+  pivot: Point,
   num: number
 ) => {
 
-  pivot = { x: width / 2, y: height / 2 }
-  length = Math.min(width, height) / 2
+  _pivot = pivot
+  length = size / 2
   unitang = Math.PI * 2 / num
   unitlen = length / 5
   emptypoints = Array(num).fill(null) as never[]
