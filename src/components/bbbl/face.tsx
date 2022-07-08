@@ -23,9 +23,9 @@ export const Face = forwardRef((
 
   return (
     <circle
-        ref={circRef}
-        r={fontSize * 0.75 | 0}
-        fill="black"
-      />
+      ref={circRef}
+      r={fontSize * 0.75 | 0}
+      fill="black"
+    />
   )
 })

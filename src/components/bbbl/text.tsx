@@ -36,8 +36,8 @@ export const Text = forwardRef((
 
   return (
     <text
-      dy={ fontSize * 0.618 | 0 }
       ref={textRef}
+      dy={ fontSize * 0.618 | 0 }
       lengthAdjust="spacingAndGlyphs"
     >
       <textPath
