@@ -1,8 +1,8 @@
 import "./style.sass"
 import { useEffect, useRef } from "preact/hooks"
-import roundPolygon, { InitPoint, RoundedPoint } from "helpers/round"
+import roundPolygon, { Point, InitPoint, RoundedPoint } from "helpers/round"
 import { frame, loop } from "helpers/animate"
-import { getpoints, getroundedpath, PrePoints, getprepoints, getinitpath } from "./utils"
+import { getpoints, getroundedpath, PrePoints, getprepoints, getinitpath, getmeanpoint } from "./utils"
 
 
 
@@ -11,48 +11,57 @@ const
   height = window.innerHeight,
   fontSize = Math.min(width, height) / 25 | 0,
   pivot = { x: width / 2, y: height / 2 },
-  num = 6,
+  num = 7,
   content = "welcome to foretoo page ".replace(/\s/g, "   ").toUpperCase()
 
 let
   prePoints: PrePoints[],
   points: InitPoint[],
+  meanpoint: Point,
   roundedPolygon: RoundedPoint[],
-  // initPath: string,
   roundedPath: string
 
 prePoints = getprepoints(num, Math.min(width, height) / 2, 0)
 points = getpoints(prePoints, pivot)
-// initPath = getinitpath(points)
+meanpoint = getmeanpoint(points)
 roundedPolygon = roundPolygon(points, Number.MAX_SAFE_INTEGER)
 roundedPath = getroundedpath(roundedPolygon)
-
-console.log(fontSize)
 
 
 export const BBBL = () => {
 
   const pathRoundedRef = useRef<SVGPathElement>(null)
-  // const pathInitRef = useRef<SVGPathElement>(null)
-  const textRef = useRef<SVGTextPathElement>(null)
-
+  const textRef = useRef<SVGTextElement>(null)
+  const textPathRef = useRef<SVGTextPathElement>(null)
+  const circRef = useRef<SVGCircleElement>(null)
 
   useEffect(() => {
+
+    const path = pathRoundedRef.current!
+    const text = textRef.current!
+    const textPath = textPathRef.current!
+    const circ = circRef.current!
 
     loop(() => {
       prePoints = getprepoints(num, Math.min(width, height) / 2, frame / 333)
       points = getpoints(prePoints, pivot)
 
-      // initPath = getinitpath(points)
-      // pathInitRef.current!.setAttribute("d", initPath)
       roundedPolygon = roundPolygon(points, Number.MAX_SAFE_INTEGER)
       roundedPath = getroundedpath(roundedPolygon)
-      pathRoundedRef.current!.setAttribute("d", roundedPath)
+      path.setAttribute("d", roundedPath)
 
-      const length = Math.floor(pathRoundedRef.current!.getTotalLength())
-      const offset = -length + (frame / 444 * length) % length
-      textRef.current!.setAttribute("startOffset", (offset).toString())
-      textRef.current!.setAttribute("textLength", (length * 2).toString())
+      const length = Math.floor(path.getTotalLength())
+      const ratio = (frame / 618) % 1
+      const offset = -length + ratio * length
+      
+      text.setAttribute("startOffset", (offset).toString())
+      text.setAttribute("textLength", (length * 2).toString())
+      textPath.setAttribute("startOffset", (offset).toString())
+      textPath.setAttribute("textLength", (length * 2).toString())
+
+      meanpoint = getmeanpoint(points)
+      circ.setAttribute("cx", meanpoint.x.toString())
+      circ.setAttribute("cy", meanpoint.y.toString())
     })
 
   }, [])
@@ -71,27 +80,44 @@ export const BBBL = () => {
           ref={pathRoundedRef}
           id="textPath"
           d={roundedPath}
-          // stroke-dasharray="2"
           stroke-linecap="round"
         />
       </defs>
 
-      <use href="#textPath" fill="none" stroke="#000" stroke-width={ fontSize * 1.5 } stroke-dasharray="0 16" />
-      <use href="#textPath" fill="none" stroke="#7fa" stroke-width={ fontSize * 1.5 - 2 } stroke-dasharray="0 16" />
-
-      {/* <path
-        ref={pathInitRef}
-        d={initPath}
-        stroke="#ccc"
+      <use
+        href="#textPath"
         fill="none"
-      /> */}
+        stroke="#000"
+        stroke-width={ fontSize * 2 }
+        stroke-dasharray={ `0 ${fontSize * 1.2}` }
+      />
+      <use
+        href="#textPath"
+        fill="none"
+        stroke="#7fa"
+        stroke-width={ fontSize * 2 - 2 }
+        stroke-dasharray={ `0 ${fontSize * 1.2}` }
+      />
+      <use href="#textPath" fill="#7fa" stroke="none" />
 
-      <text dy={ fontSize * 0.4 | 0 } >
+      <circle
+        ref={circRef}
+        cx={meanpoint.x}
+        cy={meanpoint.y}
+        r={fontSize * 0.75 | 0}
+        fill="black"
+      />
+
+      <text
+        dy={ fontSize * 0.618 | 0 }
+        ref={textRef}
+        lengthAdjust="spacingAndGlyphs"
+      >
         <textPath
-          ref={textRef}
+          ref={textPathRef}
           href="#textPath"
-          lengthAdjust="spacingAndGlyphs"
           style={{ fontSize }}
+          lengthAdjust="spacingAndGlyphs"
         >
           {content.concat(content)}
         </textPath>

@@ -21,12 +21,11 @@ export const getprepoints = (
   const unitang = Math.PI * 2 / num
 
   return Array(num).fill(null).map((_, i) => {
-    const unitlen = length / ( i % 2 === 0 ? 2 : 4 )
-    const aoff = noise(tick + i * 5, 0)
-    const loff = noise(0, tick + i * 5)
+    const unitlen = length / 5
+    const loff = noise(0, tick / 2 + i * 5)
     return {
-      a: unitang * i + aoff * unitang * 0.8,
-      l: unitlen + loff * unitlen,
+      a: tick + unitang * i,
+      l: unitlen + loff * unitlen * 4,
     }
   })
 }
@@ -39,6 +38,21 @@ export const getpoints = (
     x: pivot.x + Math.cos(a) * l,
     y: pivot.y + Math.sin(a) * l,
   }))
+)
+
+export const getmeanpoint = (
+  points: InitPoint[]
+) => (
+  points.reduce((sum: Point, p, i) => {
+    if (i === points.length - 1) return {
+      x: (sum.x + p.x) / points.length,
+      y: (sum.y + p.y) / points.length
+    }
+    return {
+      x: sum.x + p.x,
+      y: sum.y + p.y
+    }
+  })
 )
 
 export const getinitpath = (
