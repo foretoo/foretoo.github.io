@@ -1,24 +1,32 @@
 import { SVGPathData, encodeSVGPath } from "svg-pathdata"
 import { SVGCommand } from "svg-pathdata/lib/types"
-import { RoundedPoint, Point } from "helpers/round"
+import { RoundedPoint, InitPoint, Point } from "helpers/round"
+import SimplexNoise from "simplex-noise"
+
+const simplex = new SimplexNoise()
+const noise = (
+  x: number, y: number
+) => (
+  ( simplex.noise2D(x, y) + 1 ) / 2
+)
 
 export type PrePoints = { a: number, l: number }
-
-let angoffset = Math.random() * Math.PI * 2
 
 export const getprepoints = (
   num: number,
   length: number,
+  tick: number,
 ) => {
 
-  angoffset += Math.PI / 3 + Math.random() * Math.PI / 3
   const unitang = Math.PI * 2 / num
 
   return Array(num).fill(null).map((_, i) => {
     const unitlen = length / ( i % 2 === 0 ? 2 : 4 )
+    const aoff = noise(tick + i * 5, 0)
+    const loff = noise(0, tick + i * 5)
     return {
-      a: angoffset + unitang * i + (Math.random() - 0.5) * unitang * 0.8,
-      l: unitlen + Math.random() * unitlen,
+      a: unitang * i + aoff * unitang * 0.8,
+      l: unitlen + loff * unitlen,
     }
   })
 }
@@ -33,7 +41,20 @@ export const getpoints = (
   }))
 )
 
-export const getpath = (
+export const getinitpath = (
+  polygon: InitPoint[]
+) => (
+  encodeSVGPath(
+    polygon.map((p, i) => ({
+      type: i ? SVGPathData.LINE_TO :  SVGPathData.MOVE_TO,
+      relative: false,
+      x: p.x,
+      y: p.y,
+    }))
+  ).concat("Z")
+)
+
+export const getroundedpath = (
   polygon: RoundedPoint[]
 ) => (
   encodeSVGPath(
