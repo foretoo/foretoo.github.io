@@ -20,14 +20,14 @@ export const BBBL = ({
 }: BBBLProps) => {
 
   const
-    fontSize = size / 25 | 0,
     getpath = init(size, pivot, num),
     roundedPath = getpath(),
     pathRef = useRef<SVGPathElement>(null)
 
   useEffect(() => {
     loop(() => {
-      pathRef.current!.setAttribute("d", getpath())
+      const path = getpath()
+      pathRef.current!.setAttribute("d", path)
     })
   }, [])
 
@@ -49,9 +49,9 @@ export const BBBL = ({
         />
       </defs>
 
-      <Shape fontSize={fontSize} id="shapepath" />
-      <Face  fontSize={fontSize} />
-      <Text  fontSize={fontSize} ref={pathRef} id="shapepath" />
+      <Shape size={size} id="shapepath" />
+      <Face  size={size} />
+      <Text  size={size} ref={pathRef} id="shapepath" />
 
     </svg>
   )

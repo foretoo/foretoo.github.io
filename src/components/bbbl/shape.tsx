@@ -1,8 +1,8 @@
 export const Shape = (
-  props: { fontSize: number, id: string },
+  props: { size: number, id: string },
 ) => {
 
-  const { fontSize, id } = props
+  const { size, id } = props
 
   return (
     <>
@@ -10,15 +10,15 @@ export const Shape = (
         href={`#${id}`}
         fill="none"
         stroke="#000"
-        stroke-width={ fontSize * 2 }
-        stroke-dasharray={ `0 ${fontSize * 1.2}` }
+        stroke-width={ size / 12 | 0 }
+        stroke-dasharray={ `0 ${size / 20 | 0}` }
       />
       <use
         href={`#${id}`}
         fill="none"
         stroke="#7fa"
-        stroke-width={ fontSize * 2 - 2 }
-        stroke-dasharray={ `0 ${fontSize * 1.2}` }
+        stroke-width={ size / 12 - 2 | 0 }
+        stroke-dasharray={ `0 ${size / 20 | 0}` }
       />
       <use href={`#${id}`} fill="#7fa" stroke="none" />
     </>

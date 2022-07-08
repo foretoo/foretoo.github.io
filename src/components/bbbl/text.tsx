@@ -11,11 +11,12 @@ const content =
 
 
 export const Text = forwardRef((
-  props: { fontSize: number, id: string },
+  props: { size: number, id: string },
   ref: Ref<SVGPathElement>
 ) => {
 
-  const { fontSize, id } = props
+  const { size, id } = props
+  const fontSize = size / 25 | 0
   const textRef = useRef<SVGTextElement>(null)
   const textPathRef = useRef<SVGTextPathElement>(null)
 
