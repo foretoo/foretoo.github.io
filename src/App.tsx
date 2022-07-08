@@ -4,7 +4,14 @@ export const App = () => {
 
   return (
     <>
-      <BBBL />
+      <BBBL
+        size={640}
+        num={7}
+        pivot={{
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2
+        }}
+      />
     </>
   )
 }

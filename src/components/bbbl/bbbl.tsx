@@ -5,21 +5,25 @@ import { init } from "./core"
 import { Face } from "./face"
 import { Shape } from "./shape"
 import { Text } from "./text"
+import { Point } from "helpers/round"
 
 
 
-const
-  width = window.innerWidth,
-  height = window.innerHeight,
-  fontSize = Math.min(width, height) / 25 | 0,
-  num = 7,
-  getpath = init(width, height, num),
-  roundedPath = getpath()
+type BBBLProps = {
+  size: number,
+  num: number,
+  pivot: Point,
+}
 
+export const BBBL = ({
+  size, num, pivot
+}: BBBLProps) => {
 
-export const BBBL = () => {
-
-  const pathRef = useRef<SVGPathElement>(null)
+  const
+    fontSize = size / 25 | 0,
+    getpath = init(size, pivot, num),
+    roundedPath = getpath(),
+    pathRef = useRef<SVGPathElement>(null)
 
   useEffect(() => {
     loop(() => {
@@ -31,10 +35,10 @@ export const BBBL = () => {
   return (
     <svg
       class="bbbl"
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`0 0 ${window.innerWidth} ${window.innerHeight}`}
       xmlns="http://www.w3.org/2000/svg"
-      width={width}
-      height={height}
+      width={window.innerWidth}
+      height={window.innerHeight}
     >
       <defs>
         <path
