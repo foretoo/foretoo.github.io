@@ -11,8 +11,8 @@ const pointer = {
   y: window.innerHeight / 2
 }
 const moveListener = (e: PointerEvent) => {
-  pointer.x = e.offsetX
-  pointer.y = e.offsetY
+  pointer.x = e.pageX
+  pointer.y = e.pageY
 }
 
 export const App = () => {
