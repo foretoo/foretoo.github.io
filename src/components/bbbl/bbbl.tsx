@@ -5,7 +5,7 @@ import { init } from "./core"
 import { Face } from "./face"
 import { Shape } from "./shape"
 import { Text } from "./text"
-import { Point } from "helpers/round"
+import { Point } from "round-polygon"
 
 
 

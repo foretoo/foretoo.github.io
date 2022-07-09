@@ -1,6 +1,6 @@
 import { SVGPathData, encodeSVGPath } from "svg-pathdata"
 import { SVGCommand } from "svg-pathdata/lib/types"
-import roundPolygon, { RoundedPoint, InitPoint, Point } from "helpers/round"
+import roundPolygon, { RoundedPoint, InitPoint, Point } from "round-polygon"
 import SimplexNoise from "simplex-noise"
 import { frame } from "helpers/animate"
 
