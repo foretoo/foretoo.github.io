@@ -3,7 +3,6 @@ import { useEffect } from "preact/hooks"
 import { BBBL } from "./components/bbbl"
 
 const size = Math.min(window.innerWidth, window.innerHeight)*0.618|0
-console.log(size);
 
 const pivot = {
   x: window.innerWidth / 2,
