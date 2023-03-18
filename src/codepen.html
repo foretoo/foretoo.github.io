@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>codepen</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        box-sizing: border-box;
+      }
+      svg {
+        position: absolute;
+        inset: 0;
+      }
+      svg > text > textPath {
+        white-space: pre;
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <svg id="bl" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <path id="blpath" stroke-linecap="round" />
+      </defs>
+      <use
+        id="blstroke1"
+        href="#blpath"
+        fill="none"
+        stroke="#000"
+      />
+      <use
+        id="blstroke2"
+        href="#blpath"
+        fill="none"
+        stroke="#fff"
+      />
+      <use
+        href="#blpath"
+        fill="#fff"
+        stroke="none"
+      />
+      <text id="bltext" lengthAdjust="spacingAndGlyphs">
+        <textPath id="bltextpath" href="#blpath" lengthAdjust="spacingAndGlyphs"></textPath>
+      </text>
+    </svg>
+    <script type="module" src="./codepen.ts"></script>
+  </body>
+</html>
